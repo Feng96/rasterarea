@@ -48,5 +48,8 @@ nav:
     - FAQ: faq.md
     - Changelog: changelog.md
     - Report Issues: https://github.com/Feng96/rasterarea/issues
+    - Example:
+          - examples/test1.ipynb
+          - examples/test1.ipynb
     - API Reference:
           - rasterarea module: rasterarea.md
