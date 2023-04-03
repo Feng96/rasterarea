@@ -19,6 +19,7 @@ def generate_password(length=8):
 
     return password
 
-# Example usage: generate a password of length 12
-password = generate_password(12)
-print(password)
+
+def gnerate_lucky_number(length = 1):
+    result_str = ''.join(random.choice(string.digits) for i in range(length))
+    return int(result_str)
