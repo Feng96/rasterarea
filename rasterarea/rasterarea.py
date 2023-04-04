@@ -2,6 +2,7 @@
 
 import random
 import string
+import ipyleaflet
 
 def generate_password(length=8):
     """Generate a random password
@@ -32,3 +33,5 @@ def gnerate_lucky_number(length = 1):
     """    
     result_str = ''.join(random.choice(string.digits) for i in range(length))
     return int(result_str)
+
+
