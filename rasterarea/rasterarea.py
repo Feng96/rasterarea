@@ -1,7 +1,5 @@
 """Main module."""
 
-import random
-import string
 import ipyleaflet
 
 class Map(ipyleaflet.Map):
@@ -148,35 +146,25 @@ class Map(ipyleaflet.Map):
         geojson = ipyleaflet.GeoJSON(data=data, **kwargs)
         self.add_layer(geojson)
     
-        
-def generate_password(length=8):
-    """Generate a random password
 
-    Args:
-        length (int, optional): _description_. Defaults to 8.
+    def add_raster(self,url, name):
+        import httpx
 
-    Returns:
-        _type_: _description_
-    """
-    # Define the set of characters to choose from
-    characters = string.ascii_letters + string.digits + string.punctuation
+        titler_endpoint = "https://titiler.xyz"
+        r = httpx.get(
+            f"{titiler_endpoint}/cog/info",
+            params = {
+            "url": url,
+            }   
+        ).json()
+        bounds = r["bounds"]
 
-    # Generate the password
-    password = "".join(random.choice(characters) for i in range(length))
+        r = httpx.get(
+            f"{titiler_endpoint}/cog/statistics",
+             params = {
+                "url": url,
+            }
+        ).json()
 
-    return password
-
-
-def gnerate_lucky_number(length = 1):
-    """Generate your lucky number 
-
-    Args:
-        length (int, optional): _description_. Defaults to 1.
-
-    Returns:
-        _type_: _description_
-    """    
-    result_str = ''.join(random.choice(string.digits) for i in range(length))
-    return int(result_str)
 
 
