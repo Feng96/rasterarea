@@ -1,5 +1,7 @@
 """Main module."""
 
+import random
+import string
 import ipyleaflet
 
 class Map(ipyleaflet.Map):
@@ -146,25 +148,4 @@ class Map(ipyleaflet.Map):
         geojson = ipyleaflet.GeoJSON(data=data, **kwargs)
         self.add_layer(geojson)
     
-
-    def add_raster(self,url, name):
-        import httpx
-
-        titler_endpoint = "https://titiler.xyz"
-        r = httpx.get(
-            f"{titiler_endpoint}/cog/info",
-            params = {
-            "url": url,
-            }   
-        ).json()
-        bounds = r["bounds"]
-
-        r = httpx.get(
-            f"{titiler_endpoint}/cog/statistics",
-             params = {
-                "url": url,
-            }
-        ).json()
-
-
 
