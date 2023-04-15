@@ -111,37 +111,36 @@ class Map(ipyleaflet.Map):
         tile_layer = ipyleaflet.TileLayer(url=url, attribution=attribution, name=name, **kwargs)
         self.add_layer(tile_layer)
 
-    def add_basemap(self, basemap):
-        """Adds a basemap to the map.
+    def add_basemap(self, basemap, **kwargs):
 
-        Args:
-            basemap (str): The name of the basemap to add.
-        """
         import xyzservices.providers as xyz
-        try:
-            layer = eval(f"xyz.{basemap}")
-            url = layer.build_url()
-            attribution = layer.attribution
-            self.add_tile_layer(url=url, attribution=attribution, name=basemap)
 
-        except:
-            raise ValueError(f"Invalid basemap name: {basemap}")
-    
+        if basemap.lower() == "roadmap":
+            url = 'http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}'
+            self.add_tile_layer(url, name=basemap, **kwargs)
+        elif basemap.lower() == "satellite":
+            url = 'http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}'
+            self.add_tile_layer(url, name=basemap, **kwargs)
+        else:
+            try:
+                basemap = eval(f"xyz.{basemap}")
+                url = basemap.build_url()
+                attribution = basemap.attribution
+                self.add_tile_layer(url, name=basemap.name, attribution=attribution, **kwargs)
+            except:
+                raise ValueError(f"Basemap '{basemap}' not found.")
 
-    def add_geojson(self, data, **kwargs):
+    def add_geojson(self, data, name='GeoJSON', **kwargs):
         """Adds a GeoJSON layer to the map.
 
         Args:
             data (dict): The GeoJSON data.
-            kwargs: Keyword arguments to pass to the GeoJSON layer.
         """
-        import json
-
         if isinstance(data, str):
+            import json
             with open(data, "r") as f:
                 data = json.load(f)
-
-        geojson = ipyleaflet.GeoJSON(data=data, **kwargs)
+        geojson = ipyleaflet.GeoJSON(data=data,name=name, **kwargs)
         self.add_layer(geojson)
 
     

@@ -16,56 +16,81 @@ class Map(folium.Map):
         super().__init__(location=center, zoom_start=zoom, **kwargs)
 
 
-    def add_tile_layer(self, url, name, attribution="", **kwargs):
+    def add_tile_layer(self, url, name, attribution = "", **kwargs):
         """Adds a tile layer to the map.
 
         Args:
             url (str): The URL of the tile layer.
-            name (str): The name of the tile layer.
-            attribution (str, optional): The attribution of the tile layer. Defaults to "".
-        """
+            name (str): The name of the tile layer
+            attribution (str, optional): The attribution of the tile layer. Defaults to **
+            """
         tile_layer = folium.TileLayer(
-            tiles=url,
-            name=name,
-            attr=attribution,
+            tiles= url,
+            name = name,
+            attr = attribution,
             **kwargs
         )
         self.add_child(tile_layer)
-    
-    def add_geojson_layer(self, data, name, **kwargs):
-        """Adds a geojson layer to the map.
+
+     def add_basemap(self, basemap, **kwargs):
+        """Adds a basemap to the map
 
         Args:
-            data (dict): The geojson data.
-            name (str): The name of the layer.
+            basemap: The basemap to add
+
+        Raises:
+            ValueError: Incorrect Basemap
         """
-        geojson_layer = folium.GeoJson(
-            data=data,
-            name=name,
-            **kwargs
-        )
-        self.add_child(geojson_layer)
-    
-    def add_base_layer(self, layer, name):
-        """Adds a layer to the map.
+        import xyzservices.providers as xyz
+
+        if basemap.lower() == 'roadmap':
+            url = 'http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}'
+            self.add_tile_layer(url, name=basemap, **kwargs ) 
+        elif basemap.lower() == 'satellite':
+            url = 'http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}'
+            self.add_tile_layer(url, name=basemap, **kwargs)
+        else:
+            try:
+                basemap = eval(f"xyz.{basemap}")
+                url = basemap.build_url()
+                attribution = basemap.attribution 
+                self.add_tile_layer(url, name =basemap.name, attribution=attribution, **kwargs)
+            except:
+                raise ValueError(f"Basemap '{basemap}' not found")
+
+    def add_geojson(self, data, name="GeoJSON", **kwargs):
+        """Adds a GeoJSON layer to the map.
 
         Args:
-            layer (folium.Layer): The layer to add.
-            name (str): The name of the layer.
-        """
-        self.add_child(layer)
-        self.add_child(folium.LayerControl())
-    
-    def add_shp_layer(self, path, name, **kwargs):
-        """Adds a shapefile layer to the map.
+            data (dict): The GeoJSON data.
+            """
+
+        if isinstance(data, str):
+            import json
+            with open(data, "r") as f:
+                data = json.load(f)
+
+        geojson = folium.GeoJson(data=data, name=name,**kwargs)
+        geojson.add_to(self)
+
+    def add_shp(self, data, name='Shapefile', **kwargs):
+        """Adds a Shapefile layer to the map.
 
         Args:
-            path (str): The path to the shapefile.
-            name (str): The name of the layer.
+            data (str): the path to the Shapefile.
         """
-        shp_layer = folium.features.GeoJson(
-            data=path,
-            name=name,
-            **kwargs
-        )
-        self.add_child(shp_layer)
+        import geopandas as gpd
+        gdf = gpd.read_file(data)
+        geojson = gdf.__geo_interface__
+        self.add_geojson(geojson, name=name, **kwargs)
+
+    def add_vector(self, data, name = 'Vector Data', **kwargs):
+        """Adds Vector Data to the map.
+
+        Args:
+            data (str): the path to the Vector Data
+            """
+        import geopandas as gdp
+        gdf = gdp.read_file(data)
+        geojson = gdf.__geo_interface__
+        self.add_geojson(geojson, name = name, **kwargs)
