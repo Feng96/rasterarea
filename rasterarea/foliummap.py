@@ -1,20 +1,18 @@
 import folium
-
 class Map(folium.Map):
-    """Create a folium map object.
+    """ Create a folium map object.
 
     Args:
-        folium (_type_): _description_
-    """    
-    def __init__(self, center=[20, 0], zoom=2, **kwargs) -> None:
-        """Initializes the map object.
+        folium: Creates a map in Folium 
+    """
+    def __init__(self, center=[20,0], zoom=2, **kwargs) -> None:
+        """
 
         Args:
-            center (list, optional): The map center. Defaults to [20, 0].
-            zoom (int, optional): The zoom level. Defaults to 2.
+            center (list, optional): The Map Center. Defaults to [20,0].
+            zoom (int, optional): Sets the zoom level of the map. Defaults to 2.
         """
         super().__init__(location=center, zoom_start=zoom, **kwargs)
-
 
     def add_tile_layer(self, url, name, attribution = "", **kwargs):
         """Adds a tile layer to the map.
@@ -32,7 +30,7 @@ class Map(folium.Map):
         )
         self.add_child(tile_layer)
 
-     def add_basemap(self, basemap, **kwargs):
+    def add_basemap(self, basemap, **kwargs):
         """Adds a basemap to the map
 
         Args:
