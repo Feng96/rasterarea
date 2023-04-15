@@ -53,6 +53,7 @@ nav:
         - examples/test2.ipynb
         - examples/test3.ipynb
         - examples/test4.ipynb
+        - examples/test5.ipynb
     - API Reference:
           - rasterarea module: rasterarea.md
           - ipyleaflet module: ipyleafletmap.md
