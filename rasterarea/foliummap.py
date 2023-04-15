@@ -39,7 +39,7 @@ class Map(folium.Map):
             data (dict): The geojson data.
             name (str): The name of the layer.
         """
-        geojson_layer = foliummap.GeoJson(
+        geojson_layer = folium.GeoJson(
             data=data,
             name=name,
             **kwargs
@@ -54,7 +54,7 @@ class Map(folium.Map):
             name (str): The name of the layer.
         """
         self.add_child(layer)
-        self.add_child(foliummap.LayerControl())
+        self.add_child(folium.LayerControl())
     
     def add_shp_layer(self, path, name, **kwargs):
         """Adds a shapefile layer to the map.
@@ -63,7 +63,7 @@ class Map(folium.Map):
             path (str): The path to the shapefile.
             name (str): The name of the layer.
         """
-        shp_layer = foliummap.features.GeoJson(
+        shp_layer = folium.features.GeoJson(
             data=path,
             name=name,
             **kwargs

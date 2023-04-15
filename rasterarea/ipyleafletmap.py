@@ -1,6 +1,6 @@
-import rasterarea.ipyleafletmap as ipyleafletmap
+import ipyleaflet
 
-class Map(ipyleafletmap.Map):
+class Map(ipyleaflet.Map):
     
     def __init__(self, center=[20, 0], zoom=2, **kwargs) -> None:
 
@@ -34,7 +34,7 @@ class Map(ipyleafletmap.Map):
             kwargs["url"] = 'https://nominatim.openstreetmap.org/search?format=json&q={s}'
     
 
-        search_control = ipyleafletmap.SearchControl(position=position, **kwargs)
+        search_control = ipyleaflet.SearchControl(position=position, **kwargs)
         self.add_control(search_control)
 
     def add_draw_control(self, **kwargs):
@@ -43,7 +43,7 @@ class Map(ipyleafletmap.Map):
         Args:
             kwargs: Keyword arguments to pass to the draw control.
         """
-        draw_control = ipyleafletmap.DrawControl(**kwargs)
+        draw_control = ipyleaflet.DrawControl(**kwargs)
 
         draw_control.polyline =  {
             "shapeOptions": {
@@ -87,7 +87,7 @@ class Map(ipyleafletmap.Map):
         Args:
             kwargs: Keyword arguments to pass to the layers control.
         """
-        layers_control = ipyleafletmap.LayersControl(position=position)
+        layers_control = ipyleaflet.LayersControl(position=position)
         self.add_control(layers_control)
 
     def add_fullscreen_control(self, position="topleft"):
@@ -96,7 +96,7 @@ class Map(ipyleafletmap.Map):
         Args:
             kwargs: Keyword arguments to pass to the fullscreen control.
         """
-        fullscreen_control = ipyleafletmap.FullScreenControl(position=position)
+        fullscreen_control = ipyleaflet.FullScreenControl(position=position)
         self.add_control(fullscreen_control)
 
     def add_tile_layer(self, url, name, attribution="", **kwargs):
@@ -108,7 +108,7 @@ class Map(ipyleafletmap.Map):
             name (str, optional): The name of the tile layer. Defaults to "OpenStreetMap".
             kwargs: Keyword arguments to pass to the tile layer.
         """
-        tile_layer = ipyleafletmap.TileLayer(url=url, attribution=attribution, name=name, **kwargs)
+        tile_layer = ipyleaflet.TileLayer(url=url, attribution=attribution, name=name, **kwargs)
         self.add_layer(tile_layer)
 
     def add_basemap(self, basemap):
@@ -141,7 +141,7 @@ class Map(ipyleafletmap.Map):
             with open(data, "r") as f:
                 data = json.load(f)
 
-        geojson = ipyleafletmap.GeoJSON(data=data, **kwargs)
+        geojson = ipyleaflet.GeoJSON(data=data, **kwargs)
         self.add_layer(geojson)
 
     
