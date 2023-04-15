@@ -1,4 +1,4 @@
-import rasterarea.folium as folium
+import folium
 
 class Map(folium.Map):
     """Create a folium map object.
