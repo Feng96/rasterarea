@@ -58,5 +58,5 @@ nav:
         - examples/test4.ipynb
     - API Reference:
           - rasterarea module: rasterarea.md
-          - ipyleaflet module: ipyleafletmap.md
-          - folium module: foliummap.md
+          - ipyleafletmap module: ipyleafletmap.md
+          - foliummap module: foliummap.md
