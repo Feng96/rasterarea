@@ -1,5 +1,7 @@
 folium
 ipyleaflet
+geopandas
+httpx
 rasterio
 lidario
 httpx

@@ -2,7 +2,6 @@
 
 import random
 import string
-import math
 import ipyleaflet
 
 class Map(ipyleaflet.Map):
@@ -149,71 +148,36 @@ class Map(ipyleaflet.Map):
         geojson = ipyleaflet.GeoJSON(data=data, **kwargs)
         self.add_layer(geojson)
     
-    def add_shapefile(self, data, **kwargs):
-        """Adds a shapefile layer to the map.
+        
+def generate_password(length=8):
+    """Generate a random password
 
-        Args:
-            data (str): The path to the shapefile.
-            kwargs: Keyword arguments to pass to the shapefile layer.
-        """
-        import geopandas as gpd
+    Args:
+        length (int, optional): _description_. Defaults to 8.
 
-        if isinstance(data, str):
-            data = gpd.read_file(data)
+    Returns:
+        _type_: _description_
+    """
+    # Define the set of characters to choose from
+    characters = string.ascii_letters + string.digits + string.punctuation
 
-        geojson = ipyleaflet.GeoJSON(data=data.__geo_interface__, **kwargs)
-        self.add_layer(geojson)
-    
-    def add_vector(self, data, **kwargs):
-        """Adds a vector layer to the map.
+    # Generate the password
+    password = "".join(random.choice(characters) for i in range(length))
 
-        Args:
-            data (str): The path to the vector file.
-            kwargs: Keyword arguments to pass to the vector layer.
-        """
-        import geopandas as gpd
+    return password
 
-        if isinstance(data, str):
-            data = gpd.read_file(data)
 
-        geojson = ipyleaflet.GeoJSON(data=data.__geo_interface__, **kwargs)
-        self.add_layer(geojson)
+def gnerate_lucky_number(length = 1):
+    """Generate your lucky number 
 
-    def add_raster(self, url, name='Raster', fit_bounds=True, **kwargs):
-        """Adds a raster layer to the map.
+    Args:
+        length (int, optional): _description_. Defaults to 1.
 
-        Args:
-            url (str): The URL of the raster layer.
-            name (str, optional): The name of the raster layer. Defaults to 'Raster'.
-            fit_bounds (bool, optional): Whether to fit the map bounds to the raster layer. Defaults to True.
-        """
-        import httpx
-
-        titiler_endpoint = "https://titiler.xyz"
-
-        r = httpx.get(
-            f"{titiler_endpoint}/cog/info",
-            params = {
-                "url": url,
-            }
-        ).json()
-
-        bounds = r["bounds"]
-
-        r = httpx.get(
-            f"{titiler_endpoint}/cog/tilejson.json",
-            params = {
-                "url": url,
-            }
-        ).json()
-
-        tile = r["tiles"][0]
-
-        self.add_tile_layer(url=tile, name=name, **kwargs)
-
-        if fit_bounds:
-            bbox = [[bounds[1], bounds[0]], [bounds[3], bounds[2]]]
-            self.fit_bounds(bbox)
+    Returns:
+        _type_: _description_
+    """    
+    result_str = ''.join(random.choice(string.digits) for i in range(length))
+    return int(result_str)
 
 
 def area_of_pixel(center_lat,pixel_size=1, coordinatesp = 'WGS84', **kwargs):
