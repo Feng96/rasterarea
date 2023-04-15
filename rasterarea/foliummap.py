@@ -1,6 +1,6 @@
-import rasterarea.foliummap as foliummap
+import folium
 
-class Map(foliummap.Map):
+class Map(folium.Map):
     """Create a folium map object.
 
     Args:
@@ -24,7 +24,7 @@ class Map(foliummap.Map):
             name (str): The name of the tile layer.
             attribution (str, optional): The attribution of the tile layer. Defaults to "".
         """
-        tile_layer = foliummap.TileLayer(
+        tile_layer = folium.TileLayer(
             tiles=url,
             name=name,
             attr=attribution,
