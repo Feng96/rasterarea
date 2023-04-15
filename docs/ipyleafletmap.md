@@ -1,3 +1,3 @@
-# foliumap module
+# ipyleafletmap module
 
 ::: rasterarea.ipyleafletmap
