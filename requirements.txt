@@ -2,3 +2,9 @@ folium
 ipyleaflet
 rasterio
 lidario
+httpx
+geopandas
+numpy
+pandas
+geojson
+xyzservices
