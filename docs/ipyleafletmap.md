@@ -1,0 +1,3 @@
+# foliumap module
+
+::: rasterarea.ipyleafletmap

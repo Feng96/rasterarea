@@ -1,3 +1,3 @@
+# foliummap module
 
-
-::: rasterarea.folium
+::: rasterarea.foliummap
