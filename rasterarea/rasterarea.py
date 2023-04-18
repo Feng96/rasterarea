@@ -1,6 +1,7 @@
 """Main module."""
 
 import math
+import pandas as pd
 
 def area_of_pixel(center_lat,pixel_size=1, coordinatesp = 'WGS84', **kwargs):
     """_summary_
@@ -193,7 +194,7 @@ def get_geotiff_shape(geotiff_path, **kwargs):
 
     return shape
 
-def point_cloud_arrary(filepath, no_data=0, band=1, **kwargs):
+def point_cloud_arrary(filepath, no_data=-99999, band=1, **kwargs):
     """_summary_
 
     Args:
@@ -209,7 +210,7 @@ def point_cloud_arrary(filepath, no_data=0, band=1, **kwargs):
     point_cloud = translator.translate(input_values=filepath, no_data=no_data, band=band)
     return point_cloud
     
-def pixel_area_array(point_cloud_arrary, pixel_size=1, coordinatesp = 'WGS84', **kwargs):
+def pixel_area_array(point_cloud_arrary, pixel_size=1, coordinatesp = 'WGS84', toTable = False, **kwargs):
     """_summary_
 
     Args:
@@ -272,4 +273,11 @@ def pixel_area_array(point_cloud_arrary, pixel_size=1, coordinatesp = 'WGS84', *
         area_b = math.pi * b**2 * (math.log(zp_b/zm_b) / (2*c) + math.sin(math.radians(center_lat-pixel_size/2)) / (zp_b*zm_b))
         area = (1 / 360 * (area_a - area_b))
         raster_area[i][2] = area
+    
+    if toTable == True:
+        raster_area = pd.DataFrame(raster_area)
+        raster_area.rename(columns={0:'center_lon',1:'center_lat',2:'pixel_area'},inplace=True)
+    else:
+        pass
+    
     return raster_area

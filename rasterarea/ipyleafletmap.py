@@ -1,5 +1,5 @@
 import ipyleaflet
-
+import ipywidgets
 class Map(ipyleaflet.Map):
     
     def __init__(self, center=[20, 0], zoom=2, **kwargs) -> None:
@@ -201,3 +201,4 @@ class Map(ipyleaflet.Map):
         if fit_bounds:
             bbox = [[bounds[1], bounds[0]], [bounds[3], bounds[2]]]
             self.fit_bounds(bbox)
+
