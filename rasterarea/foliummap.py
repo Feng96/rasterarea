@@ -30,7 +30,7 @@ class Map(folium.Map):
         )
         self.add_child(tile_layer)
 
-    def add_basemap(self, basemap, **kwargs):
+    def add_basemap(self, basemap, **kwargs):   
         """Adds a basemap to the map
 
         Args:
