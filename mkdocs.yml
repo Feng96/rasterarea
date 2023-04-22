@@ -51,6 +51,7 @@ nav:
     - Example:
         - examples/lab7_folium.ipynb
         - examples/lab7_leaflet.ipynb
+        - examples/lab8.ipynb
         - examples/test1.ipynb
         - examples/test1.ipynb
         - examples/test2.ipynb

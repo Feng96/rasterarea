@@ -1,5 +1,7 @@
 import ipyleaflet
 import ipywidgets
+from ipyleaflet import WidgetControl
+import ipywidgets as widgets
 class Map(ipyleaflet.Map):
     
     def __init__(self, center=[20, 0], zoom=2, **kwargs) -> None:
@@ -202,3 +204,14 @@ class Map(ipyleaflet.Map):
             bbox = [[bounds[1], bounds[0]], [bounds[3], bounds[2]]]
             self.fit_bounds(bbox)
 
+    def add_image(self, url, width, height, position = 'bottomright'):
+        """Add an image to the map.
+
+        Args:
+            url (str): The URL of the image.
+            width (int): The width of the image.
+            height (int): The height of the image.
+        """
+        widget = widgets.HTML(value = f'<img src="{url}" width="{width}" height="{height}">')
+        control = WidgetControl(widget=widget, position=position)
+        self.add(control)
