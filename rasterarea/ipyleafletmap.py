@@ -204,13 +204,14 @@ class Map(ipyleaflet.Map):
             bbox = [[bounds[1], bounds[0]], [bounds[3], bounds[2]]]
             self.fit_bounds(bbox)
 
-    def add_image(self, url, width, height, position = 'bottomright'):
+    def add_image(self, url, width, height, position = 'bottomright',**kwargs):
         """Add an image to the map.
 
         Args:
             url (str): The URL of the image.
             width (int): The width of the image.
             height (int): The height of the image.
+            position (str, optional): The position of the image. Defaults to 'bottomright'.
         """
         widget = widgets.HTML(value = f'<img src="{url}" width="{width}" height="{height}">')
         control = WidgetControl(widget=widget, position=position)
