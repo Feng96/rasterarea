@@ -6,7 +6,6 @@ import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import ipywidgets as widgets
-import netCDF4 as nc
 import os
 
 def area_of_pixel(center_lat,pixel_size=1, coordinatesp = 'WGS84', **kwargs):
@@ -287,24 +286,3 @@ def pixel_area_array(point_cloud_arrary, pixel_size=1, coordinatesp = 'WGS84', t
         pass
     
     return raster_area
-
-def read_nc(nc_path, **kwargs):
-    """Read a NetCDF file.
-
-    Args:
-        nc_path (str): The path to the NetCDF file.
-
-    Returns:
-        xarray.Dataset: An xarray Dataset object containing the NetCDF file.
-    """
-    ds = nc.dataset(nc_path)
-
-    return ds
-
-
-class toolbox(plt.f):
-
-    def __init__(self)
-
-
-    
