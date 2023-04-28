@@ -3,10 +3,7 @@
 import math
 import pandas as pd
 import numpy as np
-import matplotlib as mpl
-import matplotlib.pyplot as plt
 import ipywidgets as widgets
-import os
 
 def area_of_pixel(center_lat,pixel_size=1, coordinatesp = 'WGS84', **kwargs):
     """_summary_
