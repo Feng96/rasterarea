@@ -308,7 +308,7 @@ class Map(ipyleaflet.Map):
                 output.clear_output()
                 print(f"You clicked the {b.icon} button")
 
-                if b.icon == "folder-open":
+                if b.icon == "map":
                     self.add_control(basemap_ctrl)
 
         for i in range(rows):
@@ -318,8 +318,8 @@ class Map(ipyleaflet.Map):
 
         def change_basemap(change):
             if change["new"]:
-                self.add_basemap = basemap.value
+                self.add_basemap(basemap.value)
 
-        self.observe(change_basemap, "value")
+        basemap.observe(change_basemap, names='value')
         self.add_control(toolbar_ctrl)
 
