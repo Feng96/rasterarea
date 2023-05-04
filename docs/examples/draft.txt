@@ -1,0 +1,12 @@
+##Conclusion
+
+overall describution 
+The building dataset described {number} building over United States. The dataset is in shapefile format, with each polygons in shapefile stands for a recogniszed building, the polygons is the building footprint with a attriubution table contains area.
+{persentage} of them are attributed to a height.  Overall, the datset contains 51 shapefiles, 50 states and 1 for District of Columbia. 
+
+validation
+The dataset is validated by comparing with the building footprint from OpenStreetMap. The validation is done by comparing the building height from Overture Maps.
+The result shows that most of the building height are within 10% of the building height from Overture Maps.
+
+application
+Building
