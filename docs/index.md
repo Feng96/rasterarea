@@ -4,16 +4,23 @@
 [![image](https://img.shields.io/pypi/v/rasterarea.svg)](https://pypi.python.org/pypi/rasterarea)
 
 
-**This package provides a more accurate way to claculate the area of rasters.**
+**This package provides a interactive map inherit from geemap and ipyleaflet. Visuallized GRACE data, pick a point and get the time series plot of the value in this point. Calculate the area of the pixel and more!**
 
 
 -   Free software: MIT license
 -   Documentation: <https://Feng96.github.io/rasterarea>
     
 
+## Install Instruction
+-   Please have GDAL and localtileserver installed in your envirmental by command:
+-   conda install -c conda-forge gdal
+-   pip install localtileserver
 ## Features
 
--   TODO
+-   Interactive Map from ipyleaflet
+-   Inherit toolbar from geemap
+-   Visuallized GRACE satellite data
+-   Pick a point, return a plot of the time series plot of the value of the point
 
 ## Credits
 
