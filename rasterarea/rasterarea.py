@@ -1,4 +1,5 @@
 """Main module."""
+# require GDAL 
 # import localtileserver
 import math
 import pandas as pd
