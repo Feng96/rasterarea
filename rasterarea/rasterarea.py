@@ -1,5 +1,5 @@
 """Main module."""
-import localtileserver
+# import localtileserver
 import math
 import pandas as pd
 import numpy as np
@@ -16,8 +16,8 @@ from ipyleaflet import WidgetControl
 import traitlets
 from IPython.display import display
 from tkinter import Tk, filedialog
-from cartopy import config
-import cartopy.crs as ccrs
+# from cartopy import config
+# import cartopy.crs as ccrs
 import geemap
 import rasterio
 from ipyleaflet import Marker
