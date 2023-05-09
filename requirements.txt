@@ -16,4 +16,3 @@ matplotlib
 ipyfilechooser
 netCDF4
 traitlets
-cartopy
