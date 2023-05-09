@@ -16,5 +16,4 @@ matplotlib
 ipyfilechooser
 netCDF4
 traitlets
-tkinter
 cartopy
