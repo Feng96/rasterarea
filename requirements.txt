@@ -1,5 +1,6 @@
 folium
 ipyleaflet
+ipywidgets
 geopandas
 httpx
 rasterio
@@ -10,3 +11,10 @@ numpy
 pandas
 geojson
 xyzservices
+geemap
+matplotlib
+ipyfilechooser
+netCDF4
+traitlets
+tkinter
+cartopy
