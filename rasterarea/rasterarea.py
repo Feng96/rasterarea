@@ -341,6 +341,10 @@ class SelectFilesButton(widgets.Button):
 
 
 class Toolbar(widgets.VBox):
+    """
+    create a widget for interactive plot
+        
+    """    
     def __init__(self,parent,**kwargs):
         super().__init__()
         self.create_widgets()
