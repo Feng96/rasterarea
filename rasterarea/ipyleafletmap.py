@@ -1,6 +1,10 @@
 import ipyleaflet
 from ipyleaflet import WidgetControl
 import ipywidgets as widgets
+import pandas as pd
+import geopandas as gpd
+from shapely.geometry import Point
+
 class Map(ipyleaflet.Map):
     
     def __init__(self, center=[20, 0], zoom=2, **kwargs) -> None:
@@ -216,6 +220,71 @@ class Map(ipyleaflet.Map):
         control = WidgetControl(widget=widget, position=position)
         self.add(control)
 
+
+    def csv_to_shp(in_csv,out_shp, x="longitude", y="latitude"):
+        """
+        This function takes a csv file and converts it to a shapefile.
+        """
+    
+        # Read in the csv file
+        df = pd.read_csv(in_csv)
+    
+        # Create a geometry column
+        geometry = [Point(xy) for xy in zip(df[x], df[y])]
+    
+        # Create a geodataframe
+        gdf = gpd.GeoDataFrame(df, geometry=geometry)
+    
+        # Save the geodataframe as a shapefile
+        gdf.to_file(out_shp,driver='ESRI Shapefile')
+    
+        return gdf
+
+    
+    def csv_to_geojson(in_csv, out_geojson, x="longitude", y="latitude"):
+        """
+        This function takes a csv file and converts it to a geojson file.
+        """
+    
+        # Read in the csv file
+        df = pd.read_csv(in_csv)
+    
+        # Create a geometry column
+        geometry = [Point(xy) for xy in zip(df[x], df[y])]
+    
+        # Create a geodataframe
+        gdf = gpd.GeoDataFrame(df, geometry=geometry)
+    
+        # Save the geodataframe as a geojson file
+        gdf.to_file(out_geojson, driver="GeoJSON")
+    
+        return gdf
+
+
+    def add_marker_from_csv(self, in_csv, x="longitude", y="latitude", label=None, layer_name="Marker cluster"):
+        """
+        This function takes a csv file and adds a marker cluster to the map.
+        """
+        
+        # Read in the csv file
+        df = pd.read_csv(in_csv)
+        
+        # Create a geometry column
+        geometry = [Point(xy) for xy in zip(df[x], df[y])]
+        
+        # Create a geodataframe
+        gdf = gpd.GeoDataFrame(df, geometry=geometry)
+        
+        # Create a marker cluster
+        marker_cluster = ipyleaflet.MarkerCluster(
+            markers=[ipyleaflet.Marker(location=[point.y, point.x]) for point in gdf.geometry]
+        )
+        
+        # Add the marker cluster to the map
+        self.add_layer(marker_cluster)
+        
+        return marker_cluster
+
     
     def add_toolbar(self, position='topright', **kwargs):
         """Adds a toolbar to the map.
@@ -303,6 +372,15 @@ class Map(ipyleaflet.Map):
         )
         basemap_ctrl = WidgetControl(widget=basemap, position="topright")
 
+        csv_input = widgets.Text(
+            value='',
+            placeholder='Type the path to the CSV file',
+            description='CSV File:',
+            disabled=False
+        )
+
+        csv_input_ctrl = WidgetControl(widget=csv_input, position="topright")
+
         def tool_click(b):    
             with output:
                 output.clear_output()
@@ -310,7 +388,9 @@ class Map(ipyleaflet.Map):
 
                 if b.icon == "map":
                     self.add_control(basemap_ctrl)
-
+                elif b.icon == "folder-open":
+                    self.add_control(csv_input_ctrl)
+    
         for i in range(rows):
             for j in range(cols):
                 tool = grid[i, j]
@@ -320,6 +400,14 @@ class Map(ipyleaflet.Map):
             if change["new"]:
                 self.add_basemap(basemap.value)
 
-        basemap.observe(change_basemap, names='value')
-        self.add_control(toolbar_ctrl)
 
+        def change_csv_input(change):
+            if change["new"]:
+                csv_file = csv_input.value
+                self.add_marker_from_csv(in_csv=csv_file, x="longitude", y="latitude")
+        
+        csv_input.observe(change_csv_input, names="value")
+
+        basemap.observe(change_basemap, names='value')
+
+        self.add_control(toolbar_ctrl)
