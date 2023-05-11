@@ -1,0 +1,3 @@
+# ipyleafletmap module
+
+::: rasterarea.ipyleafletmap
