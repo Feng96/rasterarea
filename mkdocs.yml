@@ -52,6 +52,7 @@ nav:
     - Report Issues: https://github.com/Feng96/rasterarea/issues
     - Example:
         - examples/final_project.ipynb
+        - examples/final_notebook.ipynb
         - examples/lab7_folium.ipynb
         - examples/lab7_leaflet.ipynb
         - examples/lab8.ipynb
